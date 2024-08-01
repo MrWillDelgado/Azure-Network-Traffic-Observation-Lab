@@ -84,32 +84,33 @@ This lab helps you understand how to observe different network traffic flows wit
 <il>2.	On the Windows 10 VM, use the command `ipconfig /renew</il></ol>
 </h3></dl>	
 
-
-Part 2.4: Observe DNS Traffic
-•	Purpose: We'll observe the DNS resolution process for translating domain names to IP addresses.
-•	Steps:
-1.	In Wireshark, switch the filter to capture only DNS traffic (filter: udp.port == 53).
-2.	On the Windows 10 VM, open a command prompt and use nslookup to query the IP addresses for google.com and disney.com.
-3.	Observe the DNS requests and replies within Wireshark (Screenshot 4: DNS Resolution).
-Google.com  
-Google.com 
- 
-
-
-Disney.com    
-
-Disney.com  
+<dl><h3>Part 2.4: Observe DNS Traffic</h3>
+	<dt>•	Purpose: We'll observe the DNS resolution process for translating domain names to IP addresses.</dt>	
+	<dt>•	Steps:</dt>	
+<ol>
+	<li>In Wireshark, switch the filter to capture only DNS traffic (filter: udp.port == 53).</li>
+	<li>On the Windows 10 VM, open a command prompt and use nslookup to query the IP addresses for google.com and disney.com.</li>
+	<li>Observe the DNS requests and replies within Wireshark (Screenshot 4: DNS Resolution).</li>
+</ol>
+<p>Google.com  </p>
+<p>Google.com  </p> 
+<p>Disney.com  </p>
+<p>Disney.com  </p>
 
 Screenshot 4: DNS Resolution (Include a screenshot here showing DNS traffic in Wireshark)
-Part 2.5: Observe RDP Traffic
-•	Purpose: We'll observe the traffic generated during a Remote Desktop connection.
-•	Steps:
-1.	In Wireshark, apply a filter for RDP traffic only (filter: tcp.port == 3389).
-2.	Initiate a Remote Desktop connection to your Windows 10 VM from your local machine.
- 
+
+<dl><h3>Part 2.5: Observe RDP Traffic</h3>
+<dt>•	Purpose: We'll observe the traffic generated during a Remote Desktop connection.</dt>
+<dt>•	Steps:</dt>
+<ol>
+<li>1.	In Wireshark, apply a filter for RDP traffic only (filter: tcp.port == 3389).</li>
+<li>2.	Initiate a Remote Desktop connection to your Windows 10 VM from your local machine.</li>
+</ol>
+</dl> 
 
  
-Observation: You'll notice a continuous stream of traffic in Wireshark.
+<h3>Observation:</h3> 
+You'll notice a continuous stream of traffic in Wireshark.
 Explanation: Unlike protocols like ICMP or SSH that generate traffic for specific actions (pings, commands), RDP establishes a live connection for displaying the remote desktop. This continuous traffic flow maintains the real-time visual representation between the two machines.
-Conclusion
+<h3>Conclusion</h3>
 This lab provided a hands-on experience observing various network traffic types within an Azure virtual network using Wireshark. You've learned to utilize filters to isolate specific traffic flows and gained insights into how different protocols communicate. Remember, proper cleanup of resources is crucial after completing your experiments.
