@@ -1,63 +1,80 @@
-# Azure-Network-Traffic-Observation-Lab
-This lab guides you through observing various network traffic types in an Azure environment using Wireshark.
-Introduction
-
+# Azure-Network-Traffic-Observation-Lab <br> 
+  <p>This lab guides you through observing various network traffic types in an Azure environment using Wireshark.
+</p><br> 
+<h2>1. Introduction</h2> 
 This lab helps you understand how to observe different network traffic flows within a virtual network created in Azure. You'll utilize tools like Remote Desktop and Wireshark to analyze network communication.
-2. Prerequisites
-•	An Azure subscription with access to create resources. 
-•	A Remote Desktop client installed on your local machine.(Windows 11, included) 
-o	Remote Desktop Client for Mac available at the app store. 
-3. Lab Steps
-Part 1: Create our Resources
-1.	Create a Resource Group: Start by creating a resource group in Azure to organize your resources for this lab.
-2.	Create a Windows 10 Virtual Machine (VM):
-o	Deploy a Windows 10 VM within the resource group you just created.
-o	During VM creation, select the option to create a new Virtual Network (VNet) and Subnet.
-3.	Create a Linux (Ubuntu) VM:
-o	Deploy a Linux (Ubuntu) VM within the same resource group.
-o	While creating the Ubuntu VM, ensure you select the previously created VNet.
-4.	Observe Your Virtual Network: Utilize Network Watcher within Azure to view the details of your newly created virtual network.
-Part 2: Observe Network Traffic
-General Approach:
-For each traffic type (ICMP, SSH, DHCP, DNS, RDP), we'll:
-1.	Briefly explain the purpose of observing this traffic.
-2.	List the steps to generate and observe the traffic.
-3.	Include a screenshot from Wireshark showcasing the specific traffic type.
-Part 2.1: Observe ICMP Traffic
-•	Purpose: We'll use ICMP (ping) to test basic connectivity between VMs.
-•	Steps:
-1.	Connect to your Windows 10 VM using Remote Desktop.
-2.	Install Wireshark on the Windows 10 VM.
-3.	Open Wireshark and apply a filter for ICMP traffic only (filter: icmp).
-4.	Retrieve the private IP address of your Ubuntu VM (use ipconfig command on the Ubuntu VM).
-5.	Ping the Ubuntu VM's private IP address from the Windows 10 VM command prompt (e.g., ping 10.0.0.5).
-6.	Observe the ping requests and replies within Wireshark  
+</p><br>
+<h2>2. Prerequisites</h2>
+<dl>
+	<dt>•	An Azure subscription with access to create resources. </dt>
+	<dt>•	A Remote Desktop client installed on your local machine.(Windows 11, included)</dt> 
+  <dd>	o	Remote Desktop Client for Mac available at the app store. </dd>
+</dl>
+</p><br>
 
-7.	From the Windows 10 VM, ping a public website (e.g., ping www.google.com). Observe the traffic in Wireshark.
-8.	Initiate a continuous ping to the Ubuntu VM using ping -t 10.0.0.5 (Windows) or ping 10.0.0.5 -c 4 (Linux).
-9.	Open the Network Security Group (NSG) associated with your Ubuntu VM2 (vm2-nsg) and disable inbound ICMP traffic.
-	On the search back in Azure type “Network Security Groups”, and follow this click path :  vm2-nsg > inbound Security Rules > + add 
-	Now Create the new rule using this information
-	Source  : 	Any
-Destination : 	Any 
-Service: 	Custom 
-Protocol :	ICMP
-Action: 	Deny
-Priority:	200 (before/less than the SSH priority) 
-Name:		DENY_ICMP_FROM_ANYWHERE
-10.	Observe the changes in ICMP traffic on Wireshark and the ping results in the command prompt.
-11.	Re-enable inbound ICMP traffic for the Ubuntu VM's NSG. Observe the ping activity resume in both Wireshark and the command prompt.
-	You can go back to the step 9  bullet , do not add a rule. Click on the existing rule [name: DENY_ICMP_FROM_ANYWHERE ] and change the action to “deny” or you can delete the rule to get the same effect. 
-12.	Stop the continuous ping on the Windows 10 VM (Ctrl+C).
-  
-Part 2.2: Observe SSH Traffic
-•	Purpose: We'll observe the traffic generated when establishing an SSH connection.
-•	Steps:
-1.	Switch back to Wireshark and apply a filter for SSH traffic only (filter: tcp.port == 22).
-2.	From the Windows 10 VM, initiate an SSH connection to your Ubuntu VM using its private IP address and credentials (e.g., ssh username@10.0.0.5).
-3.	Type commands within the SSH session and observe the corresponding SSH traffic displayed in Wireshark (Login & password required).  
-note: password will not show while typing. 
-4.	Exit the SSH connection by typing exit and pressing Enter.
+<h2>3. Lab Steps</h2>
+<dl><h3>Part 1: Create our Resources</h3><br> 	
+	<dt> 1.	Create a Resource Group: Start by creating a resource group in Azure to organize your resources for this lab.</dt>
+  <dt> 2.	Create a Windows 10 Virtual Machine (VM):</dt>
+  <dd>		o	Deploy a Windows 10 VM within the resource group you just created.</dd>
+  <dd>		o	During VM creation, select the option to create a new Virtual Network (VNet) and Subnet.</dd>
+  <dt> 3.	Create a Linux (Ubuntu) VM:</dt>
+  <dd>		o	Deploy a Linux (Ubuntu) VM within the same resource group.</dd>
+  <dd>		o	While creating the Ubuntu VM, ensure you select the previously created VNet.</dd>
+  <dt>4.	Observe Your Virtual Network: Utilize Network Watcher within Azure to view the details of your newly created virtual network.</dt>
+</dl>
+<br> 
+<dl><h3>Part 2: Observe Network Traffic</h3>
+<h4>General Approach:</h4>
+<dL> For each traffic type (ICMP, SSH, DHCP, DNS, RDP), we'll:
+	<dt> 1.	Briefly explain the purpose of observing this traffic.</dt>
+	<dt>2.	List the steps to generate and observe the traffic.</dt>
+	<dt>3.	Include a screenshot from Wireshark showcasing the specific traffic type.</dt>
+</dl>
+<br> 
+<dl><h3>Part 2.1: Observe ICMP Traffic</h3>
+<dt>•	Purpose: We'll use ICMP (ping) to test basic connectivity between VMs.</dt	>
+<dt>•	Steps:</dt>
+<dd>1.	Connect to your Windows 10 VM using Remote Desktop.</dd>
+<dd>2.	Install Wireshark on the Windows 10 VM.</dd>
+<dd>3.	Open Wireshark and apply a filter for ICMP traffic only (filter: icmp).</dd>
+<dd>4.	Retrieve the private IP address of your Ubuntu VM (use ipconfig command on the Ubuntu VM).</dd>
+<dd>5.	Ping the Ubuntu VM's private IP address from the Windows 10 VM command prompt (e.g., ping 10.0.0.5).</dd>
+<dd>6.	Observe the ping requests and replies within Wireshark  </dd>
+
+<dd>7.	From the Windows 10 VM, ping a public website (e.g., ping www.google.com). Observe the traffic in Wireshark.</dd>
+<dd>8.	Initiate a continuous ping to the Ubuntu VM using ping -t 10.0.0.5 (Windows) or ping 10.0.0.5 -c 4 (Linux).</dd>
+<dd>9.	Open the Network Security Group (NSG) associated with your Ubuntu VM2 (vm2-nsg) and disable inbound ICMP traffic.</dd>
+<ul>
+	<li>On the search back in Azure type “Network Security Groups”, and follow this click path :  vm2-nsg > inbound Security Rules > + add </li>
+	<li>Now Create the new rule using this information</li>
+	<ul>
+		<li>Source  : 	Any</li>
+		<li>Destination : 	Any </li>
+		<li>Service: 	Custom </li>
+		<li>Protocol :	ICMP</li>
+		<li>Action: 	Deny</li>
+		<li>Priority:	200 (before/less than the SSH priority) </li>
+		<li>Name:		DENY_ICMP_FROM_ANYWHERE</li>
+</ul></ul><br>
+<dd>10.	Observe the changes in ICMP traffic on Wireshark and the ping results in the command prompt.</dd>
+<dd>11.	Re-enable inbound ICMP traffic for the Ubuntu VM's NSG. Observe the ping activity resume in both Wireshark and the command prompt.</dd>
+<ul>	
+	<li>You can go back to the step 9  bullet , do not add a rule. Click on the existing rule [name: DENY_ICMP_FROM_ANYWHERE ] and change the action to “deny” or you can delete the rule to get the same effect.</li>
+</ul>
+<dd>12.	Stop the continuous ping on the Windows 10 VM (Ctrl+C).</dd>
+</dl>  
+<br>
+<dl><h3>Part 2.2: Observe SSH Traffic</h3>
+<dt>•	Purpose: We'll observe the traffic generated when establishing an SSH connection.</dt>
+<dt>•	Steps:
+<ol>
+<li>Switch back to Wireshark and apply a filter for SSH traffic only (filter: tcp.port == 22).</li>
+<li>From the Windows 10 VM, initiate an SSH connection to your Ubuntu VM using its private IP address and credentials (e.g., ssh username@10.0.0.5).</li>
+<li>Type commands within the SSH session and observe the corresponding SSH traffic displayed in Wireshark (Login & password required). </li>
+	<br>note: password will not show while typing. 
+<li>Exit the SSH connection by typing exit and pressing Enter.</li>
+</ol></dl>
 Screenshot 2: SSH Traffic (Include a screenshot here showing SSH communication in Wireshark)  
 Part 2.3: Observe DHCP Traffic
 •	Purpose: We'll observe the communication between a VM and DHCP server for obtaining an IP address.
