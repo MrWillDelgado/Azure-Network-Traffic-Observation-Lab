@@ -72,16 +72,19 @@ This lab helps you understand how to observe different network traffic flows wit
 <li>Switch back to Wireshark and apply a filter for SSH traffic only (filter: tcp.port == 22).</li>
 <li>From the Windows 10 VM, initiate an SSH connection to your Ubuntu VM using its private IP address and credentials (e.g., ssh username@10.0.0.5).</li>
 <li>Type commands within the SSH session and observe the corresponding SSH traffic displayed in Wireshark (Login & password required). </li>
-	<br>note: password will not show while typing. 
+	<mark>note: password will not show while typing. </mark>
 <li>Exit the SSH connection by typing exit and pressing Enter.</li>
-</ol></dl>
-Screenshot 2: SSH Traffic (Include a screenshot here showing SSH communication in Wireshark)  
-Part 2.3: Observe DHCP Traffic
-•	Purpose: We'll observe the communication between a VM and DHCP server for obtaining an IP address.
-•	Steps:
-1.	In Wireshark, apply a filter for DHCP traffic only (filter: udp.port == 67).
-2.	On the Windows 10 VM, use the command `ipconfig /renew
- 
+</ol></dl>Screenshot 2: SSH Traffic (Include a screenshot here showing SSH communication in Wireshark)  
+<br>
+<dl><h3>Part 2.3: Observe DHCP Traffic</h3>
+<dt>•Purpose: We'll observe the communication between a VM and DHCP server for obtaining an IP address.</dt>
+<dt>•Steps:</dt>
+<ol>
+<il>1.	In Wireshark, apply a filter for DHCP traffic only (filter: udp.port == 67).</il>
+<il>2.	On the Windows 10 VM, use the command `ipconfig /renew</il></ol>
+</h3></dl>	
+
+
 Part 2.4: Observe DNS Traffic
 •	Purpose: We'll observe the DNS resolution process for translating domain names to IP addresses.
 •	Steps:
